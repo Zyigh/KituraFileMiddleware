@@ -14,12 +14,12 @@ public struct File: Codable {
     var fileType: FileType? = nil
 }
 
-struct FileType: Codable {
+public struct FileType: Codable {
     let ext: FileExtension
     let mimeType: MimeType
 }
 
-enum FileExtension: String, Codable {
+public enum FileExtension: String, Codable {
     case aac, abw, arc, avi, azw, bin, bz, bz2, csh, css, csv, doc, docx, eot,
         epub, gif, htm, html, ico, ics, jar, jpeg, jpg, js, json, mid, midi, mpeg,
         mpkg, odp, ods, odt, oga, ogv, ogx, otf, png, pdf, ppt, pptx, rar, rtf,
@@ -27,7 +27,7 @@ enum FileExtension: String, Codable {
         woff2, xhtml, xls, xlsx, xml, xul, zip, unknown
 }
 
-enum MimeType: String, Codable {
+public enum MimeType: String, Codable {
     case aac = "audio/aac"
     case abw = "application/x-abiword"
     case avi = "video/x-msvideo"

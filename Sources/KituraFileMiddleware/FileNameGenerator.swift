@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol FileNameGenerator {
+public protocol FileNameGenerator {
     func generateFileName() -> String
 }
 
 extension UUID: FileNameGenerator {
-    func generateFileName() -> String {
+    public func generateFileName() -> String {
         return UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 import Kitura
 import LoggerAPI
 
-class KituraFile: RouterMiddleware {
+public class KituraFile: RouterMiddleware {
     /// Default directory where files will be uploaded
     let defaultDirectory: String
     
@@ -30,7 +30,7 @@ class KituraFile: RouterMiddleware {
         fileNameGenerator = fng
     }
     
-    func handle(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
+    public func handle(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
         let storageName = fileNameGenerator.generateFileName()
         request.file = File(name: nil, data: nil, storageName: storageName, fileType: nil)
         Log.info("File will be stored with name \(storageName)")
@@ -38,7 +38,7 @@ class KituraFile: RouterMiddleware {
         next()
         
         if let file = request.file {
-            let completeFilePath = defaultDirectory + storageName
+            let completeFilePath = "\(defaultDirectory)/\(storageName).\(file.fileType?.ext.rawValue ?? "unknown")"
             if (!fm.createFile(atPath: completeFilePath, contents: file.data, attributes: nil)) {
                 throw FileError.create(request.file?.name ?? storageName, defaultDirectory)
             } else {
@@ -54,7 +54,7 @@ class KituraFile: RouterMiddleware {
     }
 }
 
-extension RouterRequest {
+public extension RouterRequest {
     var file: File? {
         get {
             return userInfo["file"] as? File
